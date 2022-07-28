@@ -10,13 +10,15 @@
 # Load packages 
 library(shiny)
 library(leaflet)
+library(shinyWidgets)
 library(semantic.dashboard)
 
 # Global variables
 # source("data/multimedia.csv", local = T)
+source("modules/leafletModule.R", local = T)
+source("utils.R", local = T)
 
-# load custom stylesheet
-# tags$link(rel = "stylesheet", type="text/css", href="www/style.css")
+
 
 # Define UI for application 
 dashboardPage(
@@ -28,6 +30,10 @@ dashboardPage(
     )),
     
     dashboardBody(
+        tags$head(
+            # load custom stylesheet
+            tags$link(rel = "stylesheet", type="text/css", href="/css/style.css")
+        ),
         tabItems(
                 tabItem(tabName = "home",
                         # tags$h2("Home"),
@@ -43,15 +49,38 @@ dashboardPage(
                 ),
                 
                 tabItem(tabName = "charts",
-                        tags$h2("Species Charts"),
+                        #tags$h2("Species Charts"),
                         tags$br(),
-                        tags$h2("In this section you can view a couple of barcharts with the the total number of species per category for every park."),
+                        tags$h2("In this section you can view the total number of species in Poland."),
                             fluidRow(
-                            box(plotOutput("plot1", height = 250)),
+                                box(
+                                    class="buttons",
+                                    uiOutput("species_choices"),
+                                    # tags$button(
+                                    #     id = "help",
+                                    #     class = "helplink",
+                                    #     onclick = "Shiny.onInputChange('help_me', Date.now())",
+                                    #     img(src = "svg/help.svg", height = 24, width = 25)
+                                    # ),
+                                   
+                            # box(plotOutput("plot1", height = 250)),
+                            # box(
+                            #     title = "Controls",
+                            #     sliderInput("slider", "Number of observations:", 1, 100, 50)
+                            ),
+                            
                             box(
-                                title = "Controls",
-                                sliderInput("slider", "Number of observations:", 1, 100, 50)
-                            )
+                                tags$div(
+                                         leafletUI("main_map", width = 6), "Location of Species", 
+                                )
+                            ),
+                            
+                            fluidRow(
+                                class = "map-pies",
+                                
+                                
+                                #column(width = 6, plotContainer(plotlyOutput("subplots"), "Top 5 Kingdoms, Families, and Cities"))
+                            ),
                         )
                         )
             ),
