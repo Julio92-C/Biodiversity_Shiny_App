@@ -30,32 +30,48 @@ shinyServer(function(input, output) {
         DT::datatable(raw_data)
     })
     
-    
-    
-    # Picker for selecting/searching species.
-    output$species_choices <- renderUI(
-        
-            shinyWidgets::pickerInput(
-            inputId = "species_name",
-            label = "Vernacular or Scientific Name",
-            multiple = T,
-            choices = c(raw_data["scientificName"], raw_data["vernacularName"]),
-            selected = c("Orthilia secunda", "Lentinus tigrinus", "Corvus frugilegus"),
-            options = list(
-                `actions-box` = TRUE,
-                `live-search` = TRUE,
-                `live-search-placeholder` = "Search",
-                `none-selected-text` = "Select Fields",
-                `tick-icon` = "",
-                `virtual-scroll` = 10,
-                `size` = 6
-            )
-        )
+    output$name_choices <- renderUI(
+        selectizeInput(inputId = "scientificName", 
+                       label = "Select Vernacular or Scientific Name",
+                       selected = c("Orthilia secunda", "Lentinus tigrinus", "Corvus frugilegus"),
+                       choices = c(raw_data["scientificName"], raw_data["vernacularName"]),
+                       multiple = T,
+                       options = list(
+                           `actions-box` = TRUE,
+                           `live-search` = TRUE,
+                           `live-search-placeholder` = "Search",
+                           `none-selected-text` = "Select Fields",
+                           `tick-icon` = "",
+                           `virtual-scroll` = 10,
+                           `size` = 6
+                       )
+                       
+                     )
+                        
     )
+    
+    output$name <- ({
+        names <- renderText(input$scientificName)
+        names
+    })
+    
+    class(names)
+    
+    output$main_map <- renderLeaflet({
+        # Filter the dataset by scientificName or vernacularName
+        filter_data <- dplyr::filter(raw_data, raw_data$scientificName == input$scientificName)
+        
+        # Display may
+        m <- leaflet()
+        m <- addTiles(m)
+        m <- addMarkers(m, lng=filter_data$longitudeDecimal, lat=filter_data$latitudeDecimal, popup=filter_data$scientificName)
+        m
+    })
+    
     
     state <- reactiveValues()
     
-    leafletServer("main_map", state)
+    #leafletServer("main_map", state)
     # set.seed(122)
     # histdata <- rnorm(500)
     # output$plot1 <- renderPlot({

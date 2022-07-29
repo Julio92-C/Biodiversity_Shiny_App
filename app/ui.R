@@ -15,7 +15,7 @@ library(semantic.dashboard)
 
 # Global variables
 # source("data/multimedia.csv", local = T)
-source("modules/leafletModule.R", local = T)
+# source("modules/leafletModule.R", local = T)
 source("utils.R", local = T)
 
 
@@ -55,13 +55,8 @@ dashboardPage(
                             fluidRow(
                                 box(
                                     class="buttons",
-                                    uiOutput("species_choices"),
-                                    # tags$button(
-                                    #     id = "help",
-                                    #     class = "helplink",
-                                    #     onclick = "Shiny.onInputChange('help_me', Date.now())",
-                                    #     img(src = "svg/help.svg", height = 24, width = 25)
-                                    # ),
+                                    uiOutput("name_choices")
+                                    
                                    
                             # box(plotOutput("plot1", height = 250)),
                             # box(
@@ -71,7 +66,9 @@ dashboardPage(
                             
                             box(
                                 tags$div(
-                                         leafletUI("main_map", width = 6), "Location of Species", 
+                                        textOutput("name"),
+                                        leafletOutput("main_map")
+                                         #leafletUI("main_map", width = 6), "Location of Species", 
                                 )
                             ),
                             

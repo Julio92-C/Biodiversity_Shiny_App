@@ -4,7 +4,7 @@ library(readr)
 library(leaflet)
 
 # Load the dataset
-poland <- read_csv("data/poland.csv")
+poland <- read_csv("data/poland_dataset2.csv")
 head(poland)
 colnames(poland)
 
@@ -15,9 +15,12 @@ locality <- as.factor(poland$locality)
 # Filter the dataset by scientificName == Alces alces and locality == Warszawa
 alcesAlces <- dplyr::filter(poland, poland$scientificName == "Alces alces" & poland$locality == "Poland - Podlaskie")
 
+# Unique value
+alcesAlces_reduced <- head(alcesAlces)
+
 m <- leaflet()
 m <- addTiles(m)
-m <- addMarkers(m, lng=poland$longitudeDecimal, lat=poland$latitudeDecimal, popup=poland$scientificName)
+m <- addMarkers(m, lng=alcesAlces_reduced$longitudeDecimal, lat=alcesAlces_reduced$latitudeDecimal, popup=poland$scientificName)
 m
 
 # CLEAN UP #################################################
