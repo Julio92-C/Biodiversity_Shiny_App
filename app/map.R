@@ -18,6 +18,7 @@ alcesAlces <- dplyr::filter(poland, poland$scientificName == "Alces alces" & pol
 # Unique value
 alcesAlces_reduced <- head(alcesAlces)
 
+
 m <- leaflet()
 m <- addTiles(m)
 m <- addMarkers(m, lng=alcesAlces_reduced$longitudeDecimal, lat=alcesAlces_reduced$latitudeDecimal, popup=poland$scientificName)

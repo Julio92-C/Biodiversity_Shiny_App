@@ -14,27 +14,26 @@ library(dplyr)
 library(readr)
 library(leaflet)
 library(shinyWidgets)
+library(htmltools)
 
 
 # Define server logic required to draw a histogram
 shinyServer(function(input, output) {
-    # Input dataset
-    # raw_data <- reactive({
-    #     raw_data <- read.csv(file = "../data/poland.csv", sep = ",")
-    # })
-    
-    raw_data <- read.csv(file = "../data/poland.csv", sep = ",")
+    #Input dataset
+    raw_data <- reactive({
+        raw_data <- df
+    })
     
     
     output$mytable1 = DT::renderDataTable({
-        DT::datatable(raw_data)
+        DT::datatable(raw_data())
     })
     
     output$name_choices <- renderUI(
         selectizeInput(inputId = "scientificName", 
                        label = "Select Vernacular or Scientific Name",
-                       selected = c("Orthilia secunda", "Lentinus tigrinus", "Corvus frugilegus"),
-                       choices = c(raw_data["scientificName"], raw_data["vernacularName"]),
+                       selected = c("Grus grus", "Alces alces", "Pieris napi"),
+                       choices = c(raw_data()["scientificName"], raw_data()["vernacularName"]),
                        multiple = T,
                        options = list(
                            `actions-box` = TRUE,
@@ -47,7 +46,7 @@ shinyServer(function(input, output) {
                        )
                        
                      )
-                        
+                       
     )
     
     output$name <- ({
@@ -55,21 +54,20 @@ shinyServer(function(input, output) {
         names
     })
     
-    class(names)
-    
-    output$main_map <- renderLeaflet({
-        # Filter the dataset by scientificName or vernacularName
-        filter_data <- dplyr::filter(raw_data, raw_data$scientificName == input$scientificName)
-        
-        # Display may
-        m <- leaflet()
-        m <- addTiles(m)
-        m <- addMarkers(m, lng=filter_data$longitudeDecimal, lat=filter_data$latitudeDecimal, popup=filter_data$scientificName)
-        m
-    })
+    # # Filter the dataset by scientificName or vernacularName
+    filter_data <- eventReactive(input$scientificName, {
+        validate(
+            need(input$scientificName, "Please select a Scientific or Vernacular name")
+        )
+      
+        filter_data <- dplyr::filter(raw_data(),raw_data()$scientificName %in% input$scientificName)
+      
+    }, ignoreNULL = FALSE)
     
     
-    state <- reactiveValues()
+    # Module Leaflet Server
+    leafletServer("main_map", filter_data)
+    
     
     #leafletServer("main_map", state)
     # set.seed(122)

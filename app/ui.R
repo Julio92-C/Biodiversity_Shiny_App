@@ -15,8 +15,8 @@ library(semantic.dashboard)
 
 # Global variables
 # source("data/multimedia.csv", local = T)
-# source("modules/leafletModule.R", local = T)
-source("utils.R", local = T)
+source("modules/leafletModule.R", local = T)
+# source("utils.R", local = T)
 
 
 
@@ -44,14 +44,14 @@ dashboardPage(
                     ),
             
                 tabItem(tabName = "species_tables",
-                        tags$h2("Species Tables"),
+                        tags$h2("Species Biodiversity in Poland dataset"),
                         DT::dataTableOutput(outputId = "mytable1")
                 ),
                 
                 tabItem(tabName = "charts",
                         #tags$h2("Species Charts"),
                         tags$br(),
-                        tags$h2("In this section you can view the total number of species in Poland."),
+                        tags$h2("In this section you can view the biodiversity of species in Poland."),
                             fluidRow(
                                 box(
                                     class="buttons",
@@ -67,7 +67,9 @@ dashboardPage(
                             box(
                                 tags$div(
                                         textOutput("name"),
-                                        leafletOutput("main_map")
+                                        #leafletOutput("main_map")
+                                        # Module Leaflet UI
+                                        leafletUI("main_map")
                                          #leafletUI("main_map", width = 6), "Location of Species", 
                                 )
                             ),
