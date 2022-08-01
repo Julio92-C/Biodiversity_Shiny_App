@@ -16,7 +16,8 @@ library(semantic.dashboard)
 # Global variables
 # source("data/multimedia.csv", local = T)
 source("modules/leafletModule.R", local = T)
-# source("utils.R", local = T)
+source("modules/timelineModule.R", local = T)
+
 
 
 
@@ -58,31 +59,32 @@ dashboardPage(
                                     uiOutput("name_choices")
                                     
                                    
-                            # box(plotOutput("plot1", height = 250)),
-                            # box(
-                            #     title = "Controls",
-                            #     sliderInput("slider", "Number of observations:", 1, 100, 50)
+                            
                             ),
                             
                             box(
                                 tags$div(
                                         textOutput("name"),
-                                        #leafletOutput("main_map")
                                         # Module Leaflet UI
                                         leafletUI("main_map")
-                                         #leafletUI("main_map", width = 6), "Location of Species", 
-                                )
+                                ),
+                                
                             ),
                             
-                            fluidRow(
-                                class = "map-pies",
-                                
-                                
-                                #column(width = 6, plotContainer(plotlyOutput("subplots"), "Top 5 Kingdoms, Families, and Cities"))
-                            ),
+                            
+                             box(
+                                 kingdomCountUI("plotly_kingdomCount", height = 500)
+                            #     title = "Controls",
+                            #     sliderInput("slider", "Number of observations:", value = 12, min = 1, max = 100),
+                            #     #actionButton("updatePlot", "Update Bar Plot", style="margin-bottom:10px")
+                             ),
+                            
+                            #box(plotOutput("plot1", height = 250))
+                            box(timelineUI("plotly_timeline", height = 500))
+                            
                         )
                         )
-            ),
+            )
         
             
         )

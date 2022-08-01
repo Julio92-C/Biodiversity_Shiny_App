@@ -15,6 +15,7 @@ library(readr)
 library(leaflet)
 library(shinyWidgets)
 library(htmltools)
+library(scales)
 
 
 # Define server logic required to draw a histogram
@@ -61,6 +62,10 @@ shinyServer(function(input, output) {
         )
       
         filter_data <- dplyr::filter(raw_data(),raw_data()$scientificName %in% input$scientificName)
+        
+        # Filter the dataset by individualCount > 100
+        # input$updatePlot
+        # filter_data <- dplyr::filter(filter_data, filter_data$individualCount > input$slider)
       
     }, ignoreNULL = FALSE)
     
@@ -68,13 +73,16 @@ shinyServer(function(input, output) {
     # Module Leaflet Server
     leafletServer("main_map", filter_data)
     
+    kingdomCountServer("plotly_kingdomCount", filter_data)
     
-    #leafletServer("main_map", state)
+    # Module timeLine Server
+    timelineServer("plotly_timeline", filter_data)
+    
     # set.seed(122)
     # histdata <- rnorm(500)
     # output$plot1 <- renderPlot({
     #     data <- histdata[seq_len(input$slider)]
     #     hist(data)
-    #})
+    # })
 
 })

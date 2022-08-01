@@ -1,11 +1,11 @@
-
+# # Module Leaflet UI
 leafletUI <- function(id) {
   ns <- NS(id)
-  # column(leafletOutput(ns("map"), ...), width = width)
+  
   leafletOutput(ns("main_map"))
 }
 
-
+# Module Leaflet Server
 leafletServer <- function(id, filter_data) {
   stopifnot(is.reactive(filter_data))
   
@@ -39,29 +39,5 @@ leafletServer <- function(id, filter_data) {
       m
     
     })
-    
-    
-#     observe({
-#       state$data
-#       
-#       if (is.null(state$data)) return ()
-#       
-#       leafletProxy(ns("map")) %>%
-#         clearShapes() %>%
-#         clearMarkers() %>%
-#         clearMarkerClusters() %>%
-#         addAwesomeMarkers(
-#           lat = state$data$latitudeDecimal,
-#           lng = state$data$longitudeDecimal,
-#           label = state$data$scientificName,
-#           #popup = NULL,
-#           icon = awesomeIcons(
-#             library = "fa",
-#             icon = ifelse(state$data$kingdom == "Animalia", "paw", ifelse(state$data$kingdom == "Fungi", "globe", "pagelines")),
-#             markerColor = ifelse(state$data$kingdom == "Animalia", "lightred", ifelse(state$data$kingdom == "Fungi", "lightblue", "lightgreen"))
-#           ),
-#           layerId = c(1:nrow(state$data))
-#         )
-#     })
   })
  }
