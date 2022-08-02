@@ -16,10 +16,11 @@ library(leaflet)
 library(shinyWidgets)
 library(htmltools)
 library(scales)
+library(plotly)
 
 
 # Define server logic required to draw a histogram
-shinyServer(function(input, output) {
+shinyServer(function(input, output, session) {
     #Input dataset
     raw_data <- reactive({
         raw_data <- df
@@ -31,9 +32,9 @@ shinyServer(function(input, output) {
     })
     
     output$name_choices <- renderUI(
-        selectizeInput(inputId = "scientificName", 
+        selectizeInput(inputId = "speciesName", 
                        label = "Select Vernacular or Scientific Name",
-                       selected = c("Grus grus", "Alces alces", "Pieris napi"),
+                       selected = c("Grus grus", "Melampyrum nemorosum", "Amanita muscaria"),
                        choices = c(raw_data()["scientificName"], raw_data()["vernacularName"]),
                        multiple = T,
                        options = list(
@@ -50,24 +51,22 @@ shinyServer(function(input, output) {
                        
     )
     
+    ?selectizeInput
+    
     output$name <- ({
-        names <- renderText(input$scientificName)
+        names <- renderText(input$speciesName)
         names
     })
     
     # # Filter the dataset by scientificName or vernacularName
-    filter_data <- eventReactive(input$scientificName, {
+    filter_data <- eventReactive(input$speciesName, {
         validate(
-            need(input$scientificName, "Please select a Scientific or Vernacular name")
+            need(input$speciesName, "Please select a Scientific or Vernacular name")
         )
       
-        filter_data <- dplyr::filter(raw_data(),raw_data()$scientificName %in% input$scientificName)
-        
-        # Filter the dataset by individualCount > 100
-        # input$updatePlot
-        # filter_data <- dplyr::filter(filter_data, filter_data$individualCount > input$slider)
-      
-    }, ignoreNULL = FALSE)
+        filter_data <- dplyr::filter(raw_data(),raw_data()$scientificName %in% input$speciesName | 
+                                       raw_data()$vernacularName %in% input$speciesName)
+        }, ignoreNULL = FALSE)
     
     
     # Module Leaflet Server

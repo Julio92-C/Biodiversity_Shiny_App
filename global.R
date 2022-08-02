@@ -3,4 +3,4 @@ source("modules/leafletModule.R")
 source("modules/timelineModule.R")
 source("modules/kingdomCountModule.R")
 
-df <- read.csv(file = "../data/poland_dataset2.csv", sep = ",")
+df <- read.csv(file = "./data/poland_dataset2.csv", sep = ",")

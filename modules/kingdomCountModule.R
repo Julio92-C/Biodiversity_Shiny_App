@@ -1,3 +1,5 @@
+library(plotly)
+
 # Module kingdomCount UI
 kingdomCountUI <- function(id, height) {
   ns <- NS(id)
@@ -18,7 +20,7 @@ kingdomCountServer <- function(id, filter_data) {
       filter_data <- filter_data()
       
       # Kingdom Types Frequency
-      q <- ggplot(filter_data, aes(x=factor(kingdom), fill=kingdom))
+      q <- ggplot(filter_data, aes(x=factor(kingdom), fill=scientificName))
       q <- q + labs(x="Kingdom", y="Frequency")
       q <- q + geom_bar(stat="count", width=0.7, color="black")
       q <- q + scale_x_discrete(limits=c("Animalia", "Plantae", 

@@ -14,8 +14,10 @@ colnames(poland)
 scientificName <- unique(poland$scientificName)
 locality <- as.factor(poland$locality)
 
-# Filter the dataset by scientificName == Alces alces and locality == Warszawa
-alcesAlces <- dplyr::filter(poland, poland$scientificName == "Alces alces" & poland$locality == "Poland - Podlaskie")
+# Filter the dataset by scientificName == "Grus grus", "Melampyrum nemorosum", "Amanita muscaria"
+init_data <- dplyr::filter(poland, poland$scientificName == "Grus grus" | 
+                             poland$scientificName == "Melampyrum nemorosum" | 
+                             poland$scientificName == "Amanita muscaria" )
 
 # Unique value
 alcesAlces_reduced <- head(alcesAlces)
@@ -31,6 +33,7 @@ dataset_filtered <- dplyr::filter(poland, poland$individualCount > 100)
 
 # Sep up variables
 kingdom <- as.factor(poland$kingdom)
+fungi <- filter(poland, poland$kingdom == "Fungi")
 date <- as.Date(dataset_filtered$eventDate)
 class(date)
 

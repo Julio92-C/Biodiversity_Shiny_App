@@ -9,14 +9,15 @@
 
 # Load packages 
 library(shiny)
+library(plotly)
 library(leaflet)
 library(shinyWidgets)
 library(semantic.dashboard)
 
 # Global variables
-# source("data/multimedia.csv", local = T)
 source("modules/leafletModule.R", local = T)
 source("modules/timelineModule.R", local = T)
+source("modules/kingdomCountModule.R", local = T)
 
 
 
@@ -33,7 +34,7 @@ dashboardPage(
     dashboardBody(
         tags$head(
             # load custom stylesheet
-            tags$link(rel = "stylesheet", type="text/css", href="/css/style.css")
+            # tags$link(rel = "stylesheet", type="text/css", href="/css/style.css")
         ),
         tabItems(
                 tabItem(tabName = "home",
@@ -55,7 +56,7 @@ dashboardPage(
                         tags$h2("In this section you can view the biodiversity of species in Poland."),
                             fluidRow(
                                 box(
-                                    class="buttons",
+                                    tags$h4("Select species to show"),
                                     uiOutput("name_choices")
                                     
                                    
