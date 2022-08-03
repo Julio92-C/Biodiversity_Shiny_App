@@ -4,8 +4,8 @@ The R\Shiny demo app visualizes observed species on the map. The data comes from
 ![](images/shiny_app_home.jpg)
 
 ## Links
-Shinyapp: https://julio92-c.shinyapps.io/biodiversity_shiny_app/
-Source: https://github.com/Julio92-C/Biodiversity_Shiny_App
+- Shinyapp: https://julio92-c.shinyapps.io/biodiversity_shiny_app/
+- Source: https://github.com/Julio92-C/Biodiversity_Shiny_App
 
 ## R package requirements:
 - shiny 1.7.2
@@ -21,7 +21,7 @@ Source: https://github.com/Julio92-C/Biodiversity_Shiny_App
 - shinytest2 0.1.0
 - renv 0.14.0
 
-## Features
+## Features:
 - The application layout is made with semantic.dashboard, that semplifies the creation of dashboards.
 - The home page gives an introduction of the dataset beeing used.
 - The maps are realized with the leaflet package and plots are display with plotly package.
