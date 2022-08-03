@@ -14,6 +14,7 @@ library(leaflet)
 library(shinyWidgets)
 library(semantic.dashboard)
 
+
 # Global variables
 source("modules/leafletModule.R", local = T)
 source("modules/timelineModule.R", local = T)
