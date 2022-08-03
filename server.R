@@ -27,6 +27,7 @@ shinyServer(function(input, output, session) {
     })
     
     
+   
     output$mytable1 = DT::renderDataTable({
         DT::datatable(raw_data())
     })
@@ -51,12 +52,10 @@ shinyServer(function(input, output, session) {
                        
     )
     
-    ?selectizeInput
-    
-    output$name <- ({
-        names <- renderText(input$speciesName)
-        names
-    })
+    # output$name <- ({
+    #     names <- renderText(input$speciesName)
+    #     names
+    # })
     
     # # Filter the dataset by scientificName or vernacularName
     filter_data <- eventReactive(input$speciesName, {
@@ -77,11 +76,4 @@ shinyServer(function(input, output, session) {
     # Module timeLine Server
     timelineServer("plotly_timeline", filter_data)
     
-    # set.seed(122)
-    # histdata <- rnorm(500)
-    # output$plot1 <- renderPlot({
-    #     data <- histdata[seq_len(input$slider)]
-    #     hist(data)
-    # })
-
 })

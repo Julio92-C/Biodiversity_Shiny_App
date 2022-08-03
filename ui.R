@@ -24,11 +24,14 @@ source("modules/kingdomCountModule.R", local = T)
 
 # Define UI for application 
 dashboardPage(
-    dashboardHeader(title = "Biodiversity in Poland"),
-    dashboardSidebar(sidebarMenu(
+    dashboardHeader(title = tags$b("Biodiversity in Poland")),
+    dashboardSidebar(
+        color = "teal",
+        sidebarMenu(
         menuItem(tabName = "home", text = "Home", icon = icon("home")),
         menuItem(tabName = "species_tables", text = "Species Tables", icon = icon("table")),
-        menuItem(tabName = "charts", text = "Species Charts", icon = icon("tasks"))
+        menuItem(tabName = "charts", text = "Species Charts", icon = icon("map")),
+        menuItem(tabName = "tutorial", text = "App Tutorial", icon = icon("youtube"))
     )),
     
     dashboardBody(
@@ -39,7 +42,7 @@ dashboardPage(
         tabItems(
                 tabItem(tabName = "home",
                         # tags$h2("Home"),
-                        tags$img(class="image1", style="margin: auto; padding-top: 25px; padding-bottom: 25px", src="poland_biodiversity.jpeg", alt="biodiversity in poland", width="80%", height="600"),
+                        tags$img(class="image1", style="margin: auto; padding-top: 25px; padding-bottom: 25px", src="poland_biodiversity.jpeg", alt="biodiversity in poland", width="60%", height="500"),
                         includeHTML("./www/intro.html")
                         
                         
@@ -53,7 +56,7 @@ dashboardPage(
                 tabItem(tabName = "charts",
                         #tags$h2("Species Charts"),
                         tags$br(),
-                        tags$h2("In this section you can view the biodiversity of species in Poland."),
+                        tags$h2("In this section you can view the species biodiversity in Poland"),
                             fluidRow(
                                 box(
                                     tags$h4("Select species to show"),
@@ -65,7 +68,7 @@ dashboardPage(
                             
                             box(
                                 tags$div(
-                                        textOutput("name"),
+                                        # textOutput("name"),
                                         # Module Leaflet UI
                                         leafletUI("main_map")
                                 ),
@@ -75,16 +78,30 @@ dashboardPage(
                             
                              box(
                                  kingdomCountUI("plotly_kingdomCount", height = 500)
-                            #     title = "Controls",
-                            #     sliderInput("slider", "Number of observations:", value = 12, min = 1, max = 100),
-                            #     #actionButton("updatePlot", "Update Bar Plot", style="margin-bottom:10px")
                              ),
                             
-                            #box(plotOutput("plot1", height = 250))
                             box(timelineUI("plotly_timeline", height = 500))
                             
                         )
+                    ),
+                
+                tabItem(tabName = "tutorial",
+                        fluidRow(
+                            box(
+                                tags$h2("Biodiversity Shiny App Tutorial"),
+                                includeHTML("./www/tutorial.html")
+                                
+                            ),
+                            
+                            box(
+                                #tags$h2("YouTube Tutorial"),
+                                tags$iframe(width="100%", height="415", src="https://www.youtube.com/embed/GpBizO9FOu4", title="YouTube video player", frameborder="0", allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture, allowfullscreen")
+                                
+                                
+                            )
                         )
+                        
+                    )
             )
         
             
