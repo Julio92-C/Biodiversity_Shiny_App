@@ -1,5 +1,5 @@
 # Biodiversity_Shiny_App
-Biodiversity of species occurrences in Poland. The R\Shiny demo app visualizes observed species on the map. The data comes from the Global Biodiversity Information Facility. The original dataset is extensive and covers the whole world, however, it uses only observations from Poland. the application offers a graphical representation of the data with maps and charts.
+Biodiversity of species occurrences in Poland. The R\Shiny demo app visualizes observed species on the map. The data comes from the Global Biodiversity Information Facility. The original dataset is extensive and covers the whole world, however, it uses only observations from Poland. The application offers a graphical representation of the data with maps and charts.
 ![](images/shiny_app_home.jpg)
 
 ## Links
