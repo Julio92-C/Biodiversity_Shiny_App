@@ -3,8 +3,9 @@ Biodiversity of species occurrences in Poland. The R\Shiny demo app visualizes o
 ![](images/shiny_app_home.jpg)
 
 ## Links
-- Shinyapp: https://julio92-c.shinyapps.io/biodiversity_shiny_app/
-- Source: https://github.com/Julio92-C/Biodiversity_Shiny_App
+- Shiny app: https://julio92-c.shinyapps.io/biodiversity_shiny_app/
+- Source code: https://github.com/Julio92-C/Biodiversity_Shiny_App
+- Docker image: https://hub.docker.com/r/julio92ont/biodiversity_shiny_app
 
 ## R package requirements:
 - shiny 1.7.2
